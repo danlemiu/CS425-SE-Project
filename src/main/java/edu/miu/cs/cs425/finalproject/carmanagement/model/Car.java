@@ -2,12 +2,13 @@ package edu.miu.cs.cs425.finalproject.carmanagement.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 import java.time.LocalDate;
 
-
 @Entity
 @Table(name = "cars")
+@Data
 public class Car {
 
     @Id
@@ -27,23 +28,20 @@ public class Car {
     private int year;
 
     private String zipCode;
-    private LocalDate uploadDate;
-    private String imagePath;
 
-    @ManyToOne
-    @JoinColumn(name = "make_id", nullable = false)
-    private Make make;
+    private LocalDate uploadDate;
+
+    private String imagePath;
 
     @ManyToOne
     @JoinColumn(name = "model_id", nullable = false)
     private CarModel model;
 
-    @ManyToOne
-    @JoinColumn(name = "condition_id", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "car_condition")
     private Condition condition;
 
-    @ManyToOne
-    @JoinColumn(name = "style_id", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Style style;
 
     @ManyToOne

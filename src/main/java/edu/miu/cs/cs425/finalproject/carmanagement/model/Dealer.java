@@ -1,11 +1,16 @@
 package edu.miu.cs.cs425.finalproject.carmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Table(name = "dealers")
+@Data
 public class Dealer {
 
     @Id
@@ -13,7 +18,7 @@ public class Dealer {
     private Long dealerId;
 
     @NotNull(message = "* Dealer Number is required")
-    @Column(name = "dealerNumber", nullable = false, unique = true)
+    @Column(name = "dealerNumber", nullable = false)
     private String dealerNumber;
 
     @NotNull(message = "* Name is required")
@@ -38,12 +43,7 @@ public class Dealer {
 
     private String website;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
-
-
-    public Dealer(){
-
-    }
+    @OneToMany(mappedBy = "dealer", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Car> cars;
 }

@@ -2,9 +2,11 @@ package edu.miu.cs.cs425.finalproject.carmanagement.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
 @Entity
 @Table(name = "carmodels")
+@Data
 public class CarModel {
 
     @Id
@@ -12,44 +14,18 @@ public class CarModel {
     private int carModelId;
 
     @NotBlank(message = "* Model name is require")
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String carModelName;
 
-    @ManyToOne
-    @JoinColumn(name = "make_id", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Make make;
 
     public CarModel() {
-
     }
 
     public CarModel(@NotBlank(message = "* Model is required") String carModelName, Make make) {
         super();
         this.carModelName = carModelName;
-        this.make = make;
-    }
-
-    public int getCarModelId() {
-        return carModelId;
-    }
-
-    public void setCarModelId(int carModelId) {
-        this.carModelId = carModelId;
-    }
-
-    public String getCarModelName() {
-        return carModelName;
-    }
-
-    public void setCarModelName(String carModelName) {
-        this.carModelName = carModelName;
-    }
-
-    public Make getMake() {
-        return make;
-    }
-
-    public void setMake(Make make) {
         this.make = make;
     }
 }
