@@ -27,6 +27,11 @@ public class CarController {
         return carService.readAll();
     }
 
+    @GetMapping("/available")
+    public List<Car> displayAllAvailableCars() {
+        return carService.readAllAvailableCars();
+    }
+
     @PostMapping
     public Car addCar(@RequestBody @Valid Car car) {
         return carService.create(car);

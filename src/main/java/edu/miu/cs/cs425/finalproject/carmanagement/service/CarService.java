@@ -6,6 +6,8 @@ import edu.miu.cs.cs425.finalproject.carmanagement.repository.CarRepository;
 import edu.miu.cs.cs425.finalproject.carmanagement.repository.DealerRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CarService extends BaseService<Car, Long, CarRepository> {
 
@@ -13,10 +15,13 @@ public class CarService extends BaseService<Car, Long, CarRepository> {
 
     private final DealerRepository dealerRepository;
 
+    private final CarRepository carRepository;
+
     protected CarService(CarRepository repository, CarModelRepository carModelRepository, DealerRepository dealerRepository) {
         super(repository);
         this.carModelRepository = carModelRepository;
         this.dealerRepository = dealerRepository;
+        this.carRepository = repository;
     }
 
     @Override
@@ -25,5 +30,9 @@ public class CarService extends BaseService<Car, Long, CarRepository> {
         var dealer = dealerRepository.findById(entity.getDealer().getDealerId()).orElseThrow();
         entity.setDealer(dealer);
         return super.create(entity);
+    }
+
+    public List<Car> readAllAvailableCars() {
+        return carRepository.findAllByStatusIsTrue();
     }
 }

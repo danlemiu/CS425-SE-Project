@@ -42,6 +42,9 @@ public class Car {
     private Condition condition;
 
     @Enumerated(EnumType.STRING)
+    private Status status = Status.AVAILABLE;
+
+    @Enumerated(EnumType.STRING)
     private Style style;
 
     @ManyToOne

@@ -1,5 +1,6 @@
 package edu.miu.cs.cs425.finalproject.carmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class Role {
     @NotEmpty
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy="roles")
     private List<User> users;
 }

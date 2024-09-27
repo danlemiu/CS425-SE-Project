@@ -1,5 +1,6 @@
 package edu.miu.cs.cs425.finalproject.carmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -48,6 +49,10 @@ public class User {
             joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles;
+
+    @ManyToMany(mappedBy="users")
+    @JsonIgnore
+    private List<CarBooking> carBookings;
 
     public User() {
 
