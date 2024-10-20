@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Available Cars</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Available Cars</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Model</th>
+            <th>Dealer</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="car : ${cars}">
+            <td th:text="${car.carId}">1</td>
+            <td th:text="${car.model.carModelName}">Model Name</td>
+            <td th:text="${car.dealer.name}">Dealer Name</td>
+            <td th:text="${car.status}">Status</td>
+            <td>
+                <a th:href="@{/cars/{carId}(carId=${car.carId})}" class="btn btn-info btn-sm">View</a>
+                <a th:href="@{/cars/edit/{carId}(carId=${car.carId})}" class="btn btn-warning btn-sm">Edit</a>
+                <form th:action="@{/cars/{carId}(carId=${car.carId})}" method="post" th:object="${car}" class="d-inline">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/cars/add" class="btn btn-primary">Add New Car</a>
+</div>
+</body>
+</html>

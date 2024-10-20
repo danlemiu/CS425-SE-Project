@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -45,5 +46,6 @@ public class Dealer {
 
     @OneToMany(mappedBy = "dealer", fetch = FetchType.LAZY)
     @JsonIgnore
+    @ToString.Exclude
     private List<Car> cars;
 }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Car Post Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script>
+    // JavaScript to ensure only numbers are entered for price, mileage, year, and dealer ID
+    function allowOnlyNumbers(event) {
+      const keyCode = event.keyCode ? event.keyCode : event.which;
+      if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) {
+        event.preventDefault();
+      }
+    }
+  </script>
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="mb-4">Post Car Details</h2>
+  <form th:action="@{/cars}" th:object="${car}" method="post" class="row g-3">
+    <div class="col-md-6">
+      <label for="price" class="form-label">Price</label>
+      <input type="text" th:field="*{price}" class="form-control" id="price" placeholder="Enter price" onkeypress="allowOnlyNumbers(event)">
+    </div>
+    <div class="col-md-6">
+      <label for="mileage" class="form-label">Mileage</label>
+      <input type="text" th:field="*{mileage}" class="form-control" id="mileage" placeholder="Enter mileage" onkeypress="allowOnlyNumbers(event)">
+    </div>
+    <div class="col-md-6">
+      <label for="year" class="form-label">Year</label>
+      <input type="text" th:field="*{year}" class="form-control" id="year" placeholder="Enter year" onkeypress="allowOnlyNumbers(event)">
+    </div>
+    <div class="col-md-6">
+      <label for="zipCode" class="form-label">Zip Code</label>
+      <input type="text" th:field="*{zipCode}" class="form-control" id="zipCode" placeholder="Enter zip code">
+    </div>
+    <div class="col-md-6">
+      <label for="uploadDate" class="form-label">Upload Date</label>
+      <input type="date" th:field="*{uploadDate}" class="form-control" id="uploadDate">
+    </div>
+    <div class="col-md-6">
+      <label for="imagePath" class="form-label">Image Path</label>
+      <input type="text" th:field="*{imagePath}" class="form-control" id="imagePath" placeholder="Enter image path">
+    </div>
+    <div class="col-md-6">
+      <label for="carModelName" class="form-label">Car Model Name</label>
+      <input type="text" th:field="*{model.carModelName}" class="form-control" id="carModelName" placeholder="Enter car model name">
+    </div>
+    <div class="col-md-6">
+      <label for="make" class="form-label">Make</label>
+      <select th:field="*{model.make}" class="form-select" id="make">
+        <option th:each="make : ${makes}" th:value="${make}" th:text="${make}"></option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="style" class="form-label">Style</label>
+      <select th:field="*{style}" class="form-select" id="style">
+        <option th:each="style : ${styles}" th:value="${style}" th:text="${style}"></option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="condition" class="form-label">Condition</label>
+      <select th:field="*{condition}" class="form-select" id="condition">
+        <option th:each="condition : ${conditions}" th:value="${condition}" th:text="${condition}"></option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label for="dealer" class="form-label">Dealer</label>
+      <select th:field="*{dealer.dealerId}" class="form-select" id="dealer">
+        <option value="" disabled selected>Select a dealer</option>
+        <option th:each="dealer : ${dealer}" th:value="${dealer.dealerId}" th:text="${dealer.name} + ' (Dealer Number: ' + ${dealer.dealerNumber} + ')'"></option>
+      </select>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

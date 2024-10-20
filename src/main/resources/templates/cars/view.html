@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Car Details</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1 class="my-4">Car Details</h1>
+  <div class="card mb-4">
+    <!-- Displaying Car Image -->
+    <img th:src="@{${car.imagePath}}" class="card-img-top" alt="Car Image" onerror="this.src='default-image.jpg'">
+    <div class="card-body">
+      <h5 class="card-title" th:text="${car.model.carModelName}">Model Name</h5>
+      <p class="card-text">
+        <strong>Price:</strong> $<span th:text="${car.price}">0.00</span><br/>
+        <strong>Mileage:</strong> <span th:text="${car.mileage}">0</span> miles<br/>
+        <strong>Year:</strong> <span th:text="${car.year}">2020</span><br/>
+        <strong>Condition:</strong> <span th:text="${car.condition}">Condition</span><br/>
+        <strong>Status:</strong> <span th:text="${car.status}">Available</span><br/>
+        <strong>Style:</strong> <span th:text="${car.style}">Sedan</span><br/>
+        <strong>Upload Date:</strong> <span th:text="${car.uploadDate}">2024-01-01</span><br/>
+        <strong>Zip Code:</strong> <span th:text="${car.zipCode}">12345</span><br/>
+        <strong>Dealer:</strong> <span th:text="${car.dealer.name}">Dealer Name</span>
+      </p>
+      <a th:href="@{/cars}" class="btn btn-secondary">Back to List</a>
+      <a th:href="@{/cars/edit/{carId}(carId=${car.carId})}" class="btn btn-warning">Edit</a>
+      <form th:action="@{/cars/{carId}(carId=${car.carId})}" method="delete" class="d-inline">
+        <input type="hidden" name="_method" value="delete"/>
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
